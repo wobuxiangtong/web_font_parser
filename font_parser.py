@@ -23,7 +23,7 @@ def load(file):
         return data
 
 
-class ReportLabPen(BasePen):
+class FontPen(BasePen):
     """画出字体"""
 
     def __init__(self, glyphSet, path=None):
@@ -78,14 +78,13 @@ class WebFontParser(object):
         w, h = 40, 40
         keys = gs.keys()[2:]
         for glyphName in keys:
-            pen = ReportLabPen(gs, Path(fillColor=colors.red, strokeWidth=0.01))
+            pen = FontPen(gs, Path(fillColor=colors.red, strokeWidth=0.01))
             imageFile = "%s.png" % glyphName
             g = gs[glyphName]
             g.draw(pen)
             from reportlab.graphics import renderPM
             from reportlab.graphics.shapes import Group, Drawing
 
-            # Everything is wrapped in a group to allow transformations.
             g = Group(pen.path)
             g.translate(10, 13)
             g.scale(0.02, 0.02)
